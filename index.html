@@ -183,10 +183,12 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 padding:140px 70px 70px;
+position:relative;
 }
 
 .hero-text{
 max-width:650px;
+z-index:2;
 }
 
 .hero-text h1{
@@ -216,6 +218,7 @@ margin-top:40px;
 }
 
 .hero-car{
+position:relative;
 width:52%;
 display:flex;
 justify-content:center;
@@ -229,6 +232,53 @@ filter:
 drop-shadow(0 0 80px #7B3FFF66)
 brightness(1.05);
 transition:0.2s;
+}
+
+/* FLOATING CARD */
+
+.floating-card{
+position:absolute;
+left:40px;
+bottom:40px;
+width:280px;
+padding:22px;
+border-radius:28px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(30px);
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 0 40px rgba(123,63,255,0.15);
+animation:float 5s ease-in-out infinite;
+}
+
+.floating-card img{
+width:100%;
+border-radius:18px;
+margin-bottom:15px;
+}
+
+.floating-card h3{
+font-size:20px;
+margin-bottom:10px;
+}
+
+.floating-card p{
+font-size:13px;
+line-height:1.7;
+color:#bbb;
+}
+
+@keyframes float{
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-18px);
+}
+
+100%{
+transform:translateY(0px);
+}
 }
 
 /* STATS */
@@ -423,6 +473,46 @@ font-size:12px;
 font-weight:700;
 }
 
+.item-carrinho{
+display:flex;
+align-items:center;
+background:#1b1b1b;
+padding:15px;
+border-radius:16px;
+margin-bottom:15px;
+}
+
+.img-item{
+width:60px;
+height:60px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#222;
+border-radius:12px;
+font-size:28px;
+}
+
+.info-item{
+flex:1;
+margin-left:15px;
+}
+
+.remove-item{
+background:none;
+border:none;
+color:red;
+font-size:20px;
+cursor:pointer;
+}
+
+.total-carrinho{
+margin-top:20px;
+padding-top:20px;
+border-top:1px solid #333;
+text-align:right;
+}
+
 /* WHATS */
 
 .whatsapp{
@@ -439,26 +529,6 @@ align-items:center;
 font-size:32px;
 text-decoration:none;
 z-index:999;
-}
-
-/* RESPONSIVO */
-
-@media(max-width:900px){
-
-.hero{
-flex-direction:column;
-text-align:center;
-gap:60px;
-}
-
-.hero-text h1{
-font-size:70px;
-}
-
-.hero-car{
-width:100%;
-}
-
 }
 
 </style>
@@ -568,20 +638,24 @@ src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600&au
 alt="car"
 />
 
-</div>
+<div class="floating-card">
 
-</section>
+<img
+src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1200&auto=format&fit=crop"
+alt=""
+/>
 
-<!-- EMPRESA -->
-
-<section id="empresa">
-
-<h2>A Empresa</h2>
+<h3>Stage Performance</h3>
 
 <p>
-A Stage Gaúcha Automotiva oferece manutenção premium,
-diagnóstico inteligente e experiência automotiva futurista.
+Tecnologia premium,
+performance extrema
+e manutenção de alto nível.
 </p>
+
+</div>
+
+</div>
 
 </section>
 
@@ -591,30 +665,16 @@ diagnóstico inteligente e experiência automotiva futurista.
 
 <h2>Serviços Premium</h2>
 
-<p>
-Performance, estética, preparação e manutenção completa.
-</p>
-
 <div class="servicos-grid">
 
 <a class="servico-card" href="#">Troca de Óleo</a>
 <a class="servico-card" href="#">Freios Esportivos</a>
 <a class="servico-card" href="#">Suspensão a Ar</a>
-<a class="servico-card" href="#">Injeção Eletrônica</a>
-<a class="servico-card" href="#">Revisão Completa</a>
-<a class="servico-card" href="#">Alinhamento 3D</a>
-<a class="servico-card" href="#">Remap Stage 1</a>
-<a class="servico-card" href="#">Remap Stage 2</a>
-<a class="servico-card" href="#">Escapamento Esportivo</a>
 <a class="servico-card" href="#">Turbo Upgrade</a>
+<a class="servico-card" href="#">Escapamento Esportivo</a>
 <a class="servico-card" href="#">Body Kit</a>
-<a class="servico-card" href="#">Envelopamento</a>
-<a class="servico-card" href="#">Polimento Técnico</a>
-<a class="servico-card" href="#">Vitrificação</a>
-<a class="servico-card" href="#">Som Automotivo</a>
-<a class="servico-card" href="#">Iluminação Full LED</a>
+<a class="servico-card" href="#">Remap Stage 2</a>
 <a class="servico-card" href="#">Widebody Custom</a>
-<a class="servico-card" href="#">Pintura Premium</a>
 
 </div>
 
@@ -627,47 +687,17 @@ Performance, estética, preparação e manutenção completa.
 <h2>Loja Premium</h2>
 
 <p>
-Peças premium, performance e estética automotiva.
+Peças premium e performance automotiva.
 </p>
-
-<div style="margin-top:40px;">
 
 <button
 class="btn"
+style="margin-top:40px;"
 onclick="abrirLoja()">
 
 Entrar na Loja Premium
 
 </button>
-
-</div>
-
-</section>
-
-<!-- CONTATO -->
-
-<section id="contato">
-
-<h2>Contato</h2>
-
-<div class="contato-info">
-
-<div class="contato-card">
-<h3>WhatsApp</h3>
-<p>(44) 99708-7954</p>
-</div>
-
-<div class="contato-card">
-<h3>Email</h3>
-<p>mecanicaautomotiva.gaucha@gmail.com</p>
-</div>
-
-<div class="contato-card">
-<h3>Localização</h3>
-<p>Maringá - Paraná</p>
-</div>
-
-</div>
 
 </section>
 
@@ -708,14 +738,41 @@ onclick="filtrarProdutos('rodas', this)">
 Rodas
 </button>
 
-<button class="categoria-btn"
-onclick="filtrarProdutos('som', this)">
-Som
-</button>
-
 </div>
 
 <div class="produtos-grid" id="produtos-grid"></div>
+
+</div>
+
+</div>
+
+<!-- MODAL CARRINHO -->
+
+<div class="modal" id="modalCarrinho">
+
+<div class="modal-content">
+
+<span class="fechar"
+onclick="fecharCarrinho()">
+×
+</span>
+
+<h2>
+Seu Carrinho
+</h2>
+
+<div id="itens-carrinho"></div>
+
+<div class="total-carrinho">
+
+<h3>
+Total: R$
+<span id="total-carrinho">
+0,00
+</span>
+</h3>
+
+</div>
 
 </div>
 
@@ -754,15 +811,6 @@ img:"🚘"
 
 {
 id:4,
-nome:"Som Pioneer Full Bass",
-preco:1899.90,
-categoria:"som",
-marca:"Pioneer",
-img:"🔊"
-},
-
-{
-id:5,
 nome:"Turbo GTX Performance",
 preco:6499.90,
 categoria:"performance",
@@ -771,69 +819,19 @@ img:"💨"
 },
 
 {
-id:6,
-nome:"Suspensão Coilover",
-preco:3599.90,
-categoria:"performance",
-marca:"Castor",
-img:"⚙️"
-},
-
-{
-id:7,
+id:5,
 nome:"Aerofólio Carbon",
 preco:1299.90,
 categoria:"estetica",
 marca:"CarbonTech",
 img:"🖤"
-},
-
-{
-id:8,
-nome:"Parachoque Esportivo",
-preco:2199.90,
-categoria:"estetica",
-marca:"OEM Racing",
-img:"🚗"
-},
-
-{
-id:9,
-nome:"Farol Full LED",
-preco:1499.90,
-categoria:"estetica",
-marca:"Osram",
-img:"💡"
-},
-
-{
-id:10,
-nome:"Kit Neon Underglow",
-preco:799.90,
-categoria:"estetica",
-marca:"CyberLight",
-img:"🟣"
-},
-
-{
-id:11,
-nome:"Filtro Intake Racing",
-preco:699.90,
-categoria:"performance",
-marca:"K&N",
-img:"🌪️"
-},
-
-{
-id:12,
-nome:"Volante Esportivo",
-preco:999.90,
-categoria:"estetica",
-marca:"Sparco",
-img:"🏎️"
 }
 
 ];
+
+let carrinho = [];
+
+/* RENDER */
 
 function renderizarProdutos(lista = produtos){
 
@@ -862,9 +860,10 @@ R$ ${produto.preco.toFixed(2)}
 
 <button
 class="btn"
-style="width:100%;">
+style="width:100%;"
+onclick="adicionarCarrinho(${produto.id})">
 
-Comprar
+Adicionar
 
 </button>
 
@@ -877,6 +876,8 @@ Comprar
 }
 
 renderizarProdutos();
+
+/* FILTRO */
 
 function filtrarProdutos(categoria, botao){
 
@@ -903,6 +904,114 @@ renderizarProdutos(filtrados);
 
 }
 
+/* CARRINHO */
+
+function adicionarCarrinho(id){
+
+const produto =
+produtos.find(p => p.id === id);
+
+const existe =
+carrinho.find(item => item.id === id);
+
+if(existe){
+
+existe.qtd++;
+
+}else{
+
+carrinho.push({
+...produto,
+qtd:1
+});
+
+}
+
+atualizarCarrinho();
+
+Toastify({
+text: produto.nome + " adicionado",
+duration: 2000,
+gravity: "top",
+position: "right",
+style:{
+background:
+"linear-gradient(135deg,#7B3FFF,#a970ff)"
+}
+}).showToast();
+
+}
+
+function atualizarCarrinho(){
+
+const badge =
+document.getElementById('carrinho-badge');
+
+badge.innerText =
+carrinho.reduce((a,b)=>a+b.qtd,0);
+
+const itens =
+document.getElementById('itens-carrinho');
+
+const total =
+document.getElementById('total-carrinho');
+
+itens.innerHTML = '';
+
+let totalValor = 0;
+
+carrinho.forEach(item => {
+
+totalValor += item.preco * item.qtd;
+
+itens.innerHTML += `
+
+<div class="item-carrinho">
+
+<div class="img-item">
+${item.img}
+</div>
+
+<div class="info-item">
+
+<h4>${item.nome}</h4>
+
+<p>Qtd: ${item.qtd}</p>
+
+<p>R$ ${item.preco.toFixed(2)}</p>
+
+</div>
+
+<button
+class="remove-item"
+onclick="removerItem(${item.id})">
+
+🗑️
+
+</button>
+
+</div>
+
+`;
+
+});
+
+total.innerText =
+totalValor.toFixed(2);
+
+}
+
+function removerItem(id){
+
+carrinho =
+carrinho.filter(item => item.id !== id);
+
+atualizarCarrinho();
+
+}
+
+/* MODAIS */
+
 function abrirLoja(){
 
 document
@@ -915,6 +1024,22 @@ function fecharLoja(){
 
 document
 .getElementById('modalLoja')
+.style.display = 'none';
+
+}
+
+function abrirCarrinho(){
+
+document
+.getElementById('modalCarrinho')
+.style.display = 'flex';
+
+}
+
+function fecharCarrinho(){
+
+document
+.getElementById('modalCarrinho')
 .style.display = 'none';
 
 }
