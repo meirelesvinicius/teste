@@ -16,6 +16,7 @@
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
         }
+
         .bg-overlay {
             position: fixed;
             inset: 0;
@@ -29,6 +30,7 @@
             opacity: 0.07;
             z-index: -3;
         }
+
         header {
             position: fixed;
             top: 0;
@@ -42,14 +44,7 @@
             border-bottom: 1px solid rgba(139,92,246,0.25);
             z-index: 1000;
         }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            font-size: 28px;
-            font-weight: 900;
-            letter-spacing: -2px;
-        }
+
         .logo-circle {
             width: 58px;
             height: 58px;
@@ -60,15 +55,12 @@
             justify-content: center;
             font-size: 24px;
             box-shadow: 0 0 50px rgba(139,92,246,0.7);
+            animation: logoPulse 4s infinite alternate;
         }
-        nav a {
-            color: #ddd;
-            text-decoration: none;
-            margin: 0 22px;
-            font-weight: 500;
-            transition: 0.4s;
+        @keyframes logoPulse {
+            from { box-shadow: 0 0 30px rgba(139,92,246,0.6); }
+            to { box-shadow: 0 0 70px rgba(139,92,246,0.9); }
         }
-        nav a:hover { color: var(--primary); }
 
         .hero {
             min-height: 100vh;
@@ -89,12 +81,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .hero p {
-            font-size: 24px;
-            max-width: 520px;
-            opacity: 0.9;
-            margin: 30px 0 50px;
-        }
 
         .btn {
             padding: 20px 48px;
@@ -112,7 +98,6 @@
         }
         .btn-primary:hover {
             transform: translateY(-10px) scale(1.06);
-            box-shadow: 0 25px 60px rgba(139,92,246,0.7);
         }
 
         .section {
@@ -125,9 +110,9 @@
             background: linear-gradient(90deg, #fff, #C026D3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 700;
         }
 
+        /* ANIMAÇÕES DE ENTRADA NOS CARDS */
         .produtos-grid, .servicos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -140,9 +125,18 @@
             border-radius: 32px;
             padding: 35px 25px;
             text-align: center;
-            transition: all 0.6s;
+            opacity: 0;
+            transform: translateY(60px) scale(0.92);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             backdrop-filter: blur(12px);
         }
+
+        /* Animação de entrada */
+        .produto-card.visible, .servico-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
         .produto-card:hover, .servico-card:hover {
             transform: translateY(-25px) scale(1.03);
             border-color: #8B5CF6;
@@ -168,7 +162,7 @@
             background: #1a1a1a;
             color: white;
             cursor: pointer;
-            transition: 0.4s;
+            transition: all 0.4s;
         }
         .categorias button.active,
         .categorias button:hover {
@@ -266,7 +260,7 @@
     </div>
 </section>
 
-<!-- Modal Carrinho -->
+<!-- Modais -->
 <div class="modal" id="modalCarrinho">
     <div class="modal-content" style="padding:40px;">
         <span onclick="fecharCarrinho()" style="float:right; font-size:40px; cursor:pointer; color:#aaa;">×</span>
@@ -281,7 +275,6 @@
     </div>
 </div>
 
-<!-- Modal PIX -->
 <div class="modal" id="modalPix">
     <div class="modal-content" style="padding:40px; text-align:center;">
         <span onclick="fecharPix()" style="float:right; font-size:40px; cursor:pointer; color:#aaa;">×</span>
@@ -294,7 +287,7 @@
 </div>
 
 <script>
-// ==================== PRODUTOS (32 ITENS) ====================
+// ==================== PRODUTOS (32) ====================
 const produtos = [
     {id:1, nome:"Óleo Motul 5W30", preco:89.90, precoAntigo:109.90, categoria:"oleo", img:"🛢️"},
     {id:2, nome:"Pneu Michelin Pilot Sport 4", preco:699.90, precoAntigo:799.90, categoria:"pneus", img:"🛞"},
@@ -330,7 +323,6 @@ const produtos = [
     {id:32, nome:"LED Interior Completo", preco:89.90, precoAntigo:129.90, categoria:"acessorios", img:"💡"}
 ];
 
-// ==================== SERVIÇOS (18 ITENS) ====================
 const servicos = [
     {nome:"Troca de Óleo Premium", desc:"Inclui óleo sintético + filtro + inspeção"},
     {nome:"Revisão Completa", desc:"500 itens verificados com checklist"},
@@ -358,32 +350,36 @@ let carrinho = [];
 function renderizarServicos() {
     const grid = document.getElementById('servicos-grid');
     grid.innerHTML = '';
-    servicos.forEach(s => {
-        grid.innerHTML += `
-            <div class="servico-card">
-                <h3>${s.nome}</h3>
-                <p>${s.desc}</p>
-                <button class="btn btn-primary" style="margin-top:25px; width:100%;" onclick="solicitarServico('${s.nome}')">Solicitar Orçamento</button>
-            </div>
+    servicos.forEach((s, i) => {
+        const card = document.createElement('div');
+        card.className = 'servico-card';
+        card.innerHTML = `
+            <h3>${s.nome}</h3>
+            <p>${s.desc}</p>
+            <button class="btn btn-primary" style="margin-top:25px; width:100%;" onclick="solicitarServico('${s.nome}')">Solicitar Orçamento</button>
         `;
+        grid.appendChild(card);
+        setTimeout(() => card.classList.add('visible'), 100 + i * 80);
     });
 }
 
 function renderizarProdutos(lista = produtos) {
     const grid = document.getElementById('produtos-grid');
     grid.innerHTML = '';
-    lista.forEach(p => {
+    lista.forEach((p, i) => {
         const desconto = p.precoAntigo ? Math.round(((p.precoAntigo - p.preco)/p.precoAntigo)*100) : 0;
-        grid.innerHTML += `
-            <div class="produto-card">
-                ${desconto > 0 ? `<div class="promocao">- ${desconto}% OFF</div>` : ''}
-                <div style="font-size:72px; margin:25px 0;">${p.img}</div>
-                <h3>${p.nome}</h3>
-                ${p.precoAntigo ? `<p style="text-decoration:line-through; color:#666; margin:8px 0;">R$ ${p.precoAntigo.toFixed(2)}</p>` : ''}
-                <div class="preco">R$ ${p.preco.toFixed(2)}</div>
-                <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="adicionarCarrinho(${p.id})">Adicionar ao Carrinho</button>
-            </div>
+        const card = document.createElement('div');
+        card.className = 'produto-card';
+        card.innerHTML = `
+            ${desconto > 0 ? `<div class="promocao">- ${desconto}% OFF</div>` : ''}
+            <div style="font-size:72px; margin:25px 0;">${p.img}</div>
+            <h3>${p.nome}</h3>
+            ${p.precoAntigo ? `<p style="text-decoration:line-through; color:#666; margin:8px 0;">R$ ${p.precoAntigo.toFixed(2)}</p>` : ''}
+            <div class="preco">R$ ${p.preco.toFixed(2)}</div>
+            <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="adicionarCarrinho(${p.id})">Adicionar ao Carrinho</button>
         `;
+        grid.appendChild(card);
+        setTimeout(() => card.classList.add('visible'), 150 + i * 60);
     });
 }
 
@@ -395,6 +391,7 @@ function filtrarProdutos(cat, btn) {
     renderizarProdutos(filtrados);
 }
 
+// Funções do carrinho (mantidas)
 function adicionarCarrinho(id) {
     const produto = produtos.find(p => p.id === id);
     const existe = carrinho.find(i => i.id === id);
@@ -414,11 +411,8 @@ function atualizarCarrinho() {
         total += item.preco * item.qtd;
         itensDiv.innerHTML += `
             <div style="display:flex; justify-content:space-between; padding:15px; background:#1a1a1a; margin-bottom:10px; border-radius:12px;">
-                <div>
-                    <strong>${item.nome}</strong><br>
-                    R$ ${item.preco.toFixed(2)} × ${item.qtd}
-                </div>
-                <button onclick="removerDoCarrinho(${index})" style="background:none; border:none; color:red; font-size:22px;">×</button>
+                <div><strong>${item.nome}</strong><br>R$ ${item.preco.toFixed(2)} × ${item.qtd}</div>
+                <button onclick="removerDoCarrinho(${index})" style="background:none;border:none;color:red;font-size:22px;">×</button>
             </div>
         `;
     });
@@ -426,25 +420,10 @@ function atualizarCarrinho() {
     badge.textContent = carrinho.reduce((acc, i) => acc + i.qtd, 0);
 }
 
-function removerDoCarrinho(index) {
-    carrinho.splice(index, 1);
-    atualizarCarrinho();
-}
-
-function limparCarrinho() {
-    carrinho = [];
-    atualizarCarrinho();
-    fecharCarrinho();
-}
-
-function abrirCarrinho() {
-    document.getElementById('modalCarrinho').style.display = 'flex';
-    atualizarCarrinho();
-}
-
-function fecharCarrinho() {
-    document.getElementById('modalCarrinho').style.display = 'none';
-}
+function removerDoCarrinho(index) { carrinho.splice(index, 1); atualizarCarrinho(); }
+function limparCarrinho() { carrinho = []; atualizarCarrinho(); fecharCarrinho(); }
+function abrirCarrinho() { document.getElementById('modalCarrinho').style.display = 'flex'; atualizarCarrinho(); }
+function fecharCarrinho() { document.getElementById('modalCarrinho').style.display = 'none'; }
 
 function finalizarPedido() {
     if(carrinho.length === 0) return alert("Carrinho vazio!");
@@ -468,17 +447,12 @@ function abrirPix() {
     document.getElementById("pixQr").src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(pixText)}`;
     document.getElementById("modalPix").style.display = "flex";
 }
-
-function fecharPix() {
-    document.getElementById("modalPix").style.display = "none";
-}
-
+function fecharPix() { document.getElementById("modalPix").style.display = "none"; }
 function copiarPix() {
     document.getElementById("pixCopia").select();
     document.execCommand("copy");
-    Toastify({text:"✅ PIX copiado com sucesso!", duration:2500, backgroundColor:"#8B5CF6"}).showToast();
+    Toastify({text:"✅ PIX copiado!", duration:2500, backgroundColor:"#8B5CF6"}).showToast();
 }
-
 function solicitarServico(nome) {
     const msg = `Olá! Gostaria de um orçamento para: ${nome}`;
     window.open(`https://wa.me/5544997087954?text=${encodeURIComponent(msg)}`, '_blank');
