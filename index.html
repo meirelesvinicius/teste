@@ -7,38 +7,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
 <style>
 /* === SEU CSS ORIGINAL (mantido + pequenas melhorias) === */
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; scroll-behavior:smooth; }
 body { background:#070707; color:white; overflow-x:hidden; }
-
 body::before {
     content:''; position:fixed; width:900px; height:900px;
     background:radial-gradient(circle,#7B3FFF44 0%,transparent 70%);
     top:-300px; right:-300px; filter:blur(120px); z-index:-1;
 }
-
 .particles { position:fixed; inset:0; overflow:hidden; z-index:-2; }
-
 header {
     position:fixed; top:0; left:0; width:100%; padding:25px 70px;
     display:flex; justify-content:space-between; align-items:center;
     background:rgba(255,255,255,0.03); backdrop-filter:blur(30px);
     border-bottom:1px solid rgba(255,255,255,0.08); z-index:999;
 }
-
 .logo { display:flex; align-items:center; gap:12px; font-size:24px; font-weight:700; }
 .logo-circle {
     width:45px; height:45px; border-radius:50%; background:#7B3FFF;
     display:flex; align-items:center; justify-content:center; font-weight:800;
     box-shadow:0 0 30px #7B3FFF99;
 }
-
 nav { display:flex; align-items:center; gap:25px; }
 nav a { text-decoration:none; color:white; font-size:14px; opacity:0.8; transition:0.3s; }
 nav a:hover { color:#b58cff; opacity:1; }
-
 .btn {
     padding:18px 35px; border:none; border-radius:60px; font-weight:700;
     cursor:pointer; transition:0.4s; font-size:15px;
@@ -47,15 +40,12 @@ nav a:hover { color:#b58cff; opacity:1; }
 .btn-primary:hover { transform:translateY(-5px); box-shadow:0 0 60px #7B3FFF; }
 .btn-secondary { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:white; }
 .btn-secondary:hover { background:rgba(255,255,255,0.1); }
-
 .hero { min-height:100vh; display:flex; align-items:center; justify-content:space-between; padding:140px 70px 70px; }
 .hero-text h1 { font-size:110px; line-height:0.9; font-weight:300; letter-spacing:-5px; }
 .hero-text h1 span { color:#b58cff; }
-
 .produtos-grid, .servicos-grid {
     display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:25px; margin-top:40px;
 }
-
 .produto-card, .servico-card {
     background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06);
     padding:25px; border-radius:24px; transition:0.4s; text-align:center;
@@ -63,11 +53,9 @@ nav a:hover { color:#b58cff; opacity:1; }
 .produto-card:hover, .servico-card:hover {
     transform:translateY(-10px); box-shadow:0 0 60px rgba(123,63,255,0.25);
 }
-
 .preco { font-size:28px; font-weight:700; color:#c7a8ff; margin:10px 0; }
 .preco-antigo { text-decoration:line-through; color:#666; font-size:16px; }
 .promocao { background:#ff4757; color:white; padding:4px 12px; border-radius:20px; font-size:13px; display:inline-block; margin-bottom:10px; }
-
 .modal {
     position:fixed; inset:0; background:rgba(0,0,0,0.85); display:none;
     justify-content:center; align-items:center; z-index:9999;
@@ -77,20 +65,16 @@ nav a:hover { color:#b58cff; opacity:1; }
     border:1px solid rgba(255,255,255,0.08); max-height:90vh; overflow-y:auto;
 }
 .fechar { position:absolute; top:15px; right:20px; font-size:35px; cursor:pointer; color:#aaa; }
-
 .categorias button {
     padding:10px 20px; margin-right:8px; border:none; border-radius:30px;
     background:#1f1f1f; color:white; cursor:pointer;
 }
 .categorias button.active { background:#7B3FFF; }
-
 .checkout-btns { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
 </style>
 </head>
 <body>
-
 <div class="particles" id="particles"></div>
-
 <header>
     <div class="logo">
         <div class="logo-circle">S</div>
@@ -105,7 +89,6 @@ nav a:hover { color:#b58cff; opacity:1; }
         <button class="carrinho-btn" onclick="abrirCarrinho()">🛒 <span class="carrinho-badge" id="carrinho-badge">0</span></button>
     </nav>
 </header>
-
 <section class="hero" id="home">
     <div class="hero-text">
         <h1>Stage<br><span>Gaúcha</span></h1>
@@ -119,17 +102,14 @@ nav a:hover { color:#b58cff; opacity:1; }
         <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600" alt="Carro Premium">
     </div>
 </section>
-
 <section id="empresa">
     <h2>A Empresa</h2>
     <p>Stage Gaúcha Automotiva é referência em mecânica premium, performance e estética automotiva em <strong>Gaúcha - PR</strong>.</p>
 </section>
-
 <section id="servicos">
     <h2>Nossos Serviços</h2>
     <div class="servicos-grid" id="servicos-grid"></div>
 </section>
-
 <section id="produtos">
     <h2>Loja Premium</h2>
     <div class="categorias">
@@ -141,7 +121,6 @@ nav a:hover { color:#b58cff; opacity:1; }
     </div>
     <div class="produtos-grid" id="produtos-grid"></div>
 </section>
-
 <section id="contato">
     <h2>Contato</h2>
     <div class="contato-info">
@@ -184,8 +163,8 @@ nav a:hover { color:#b58cff; opacity:1; }
 </div>
 
 <script>
-// ==================== PRODUTOS ====================
-const produtos = [ /* ... mesmo array que você enviou ... */ 
+// ==================== PRODUTOS (32 ITENS) ====================
+const produtos = [
     {id:1, nome:"Óleo Motul 5W30", preco:89.90, precoAntigo:109.90, categoria:"oleo", img:"🛢️"},
     {id:2, nome:"Pneu Michelin Pilot Sport 4", preco:699.90, precoAntigo:799.90, categoria:"pneus", img:"🛞"},
     {id:3, nome:"Bateria Moura 60Ah", preco:479.90, precoAntigo:549.90, categoria:"bateria", img:"🔋"},
@@ -199,21 +178,47 @@ const produtos = [ /* ... mesmo array que você enviou ... */
     {id:11, nome:"Escapamento Esportivo", preco:890.90, precoAntigo:1099.90, categoria:"acessorios", img:"🔥"},
     {id:12, nome:"Farol LED Xenon", preco:279.90, precoAntigo:349.90, categoria:"acessorios", img:"💡"},
     {id:13, nome:"Suspensão a Ar", preco:2450, precoAntigo:2890, categoria:"acessorios", img:"🌬️"},
-    {id:14, nome:"Aditivo Radiador", preco:29.90, categoria:"oleo", img:"🧪"}
+    {id:14, nome:"Aditivo Radiador", preco:29.90, categoria:"oleo", img:"🧪"},
+    {id:15, nome:"Óleo Castrol Edge 5W30", preco:99.90, precoAntigo:129.90, categoria:"oleo", img:"🛢️"},
+    {id:16, nome:"Pneu Pirelli P Zero", preco:759.90, precoAntigo:859.90, categoria:"pneus", img:"🛞"},
+    {id:17, nome:"Chip de Potência Stage 2", preco:890, precoAntigo:1190, categoria:"acessorios", img:"⚡"},
+    {id:18, nome:"Jogo de Rodas Aro 18", preco:1890, precoAntigo:2290, categoria:"acessorios", img:"🛞"},
+    {id:19, nome:"Freios a Disco Ventilados", preco:1240, precoAntigo:1490, categoria:"acessorios", img:"🛑"},
+    {id:20, nome:"Bateria Moura Start-Stop", preco:680, precoAntigo:750, categoria:"bateria", img:"🔋"},
+    {id:21, nome:"Filtro de Ar Esportivo K&N", preco:189.90, precoAntigo:229.90, categoria:"acessorios", img:"🌬️"},
+    {id:22, nome:"Óleo Mobil 1 5W40", preco:109.90, precoAntigo:139.90, categoria:"oleo", img:"🛢️"},
+    {id:23, nome:"Pneu Continental ExtremeContact", preco:720, precoAntigo:810, categoria:"pneus", img:"🛞"},
+    {id:24, nome:"Intercooler Performance", preco:890, precoAntigo:1090, categoria:"acessorios", img:"❄️"},
+    {id:25, nome:"Kit Embreagem Sachs", preco:780, precoAntigo:920, categoria:"acessorios", img:"⚙️"},
+    {id:26, nome:"Som Automotivo + Subwoofer", preco:1350, precoAntigo:1590, categoria:"acessorios", img:"🎵"},
+    {id:27, nome:"Spray de Limpeza de Motor", preco:24.90, categoria:"oleo", img:"🧼"},
+    {id:28, nome:"Bateria Varta 95Ah", preco:680, precoAntigo:780, categoria:"bateria", img:"🔋"},
+    {id:29, nome:"Coletor de Admissão", preco:450, precoAntigo:580, categoria:"acessorios", img:"🌪️"},
+    {id:30, nome:"Pneu Goodyear Eagle F1", preco:680, precoAntigo:760, categoria:"pneus", img:"🛞"},
+    {id:31, nome:"Kit Suspensão Rosca", preco:1450, precoAntigo:1790, categoria:"acessorios", img:"🔧"},
+    {id:32, nome:"LED Interior Completo", preco:89.90, precoAntigo:129.90, categoria:"acessorios", img:"💡"}
 ];
 
-// ==================== SERVIÇOS ====================
-const servicos = [ /* mesmo array */ 
-    {nome:"Troca de Óleo Premium", desc:"Inclui óleo sintético + filtro"},
-    {nome:"Revisão Completa", desc:"500 itens verificados"},
+// ==================== SERVIÇOS (18 ITENS) ====================
+const servicos = [
+    {nome:"Troca de Óleo Premium", desc:"Inclui óleo sintético + filtro + inspeção"},
+    {nome:"Revisão Completa", desc:"500 itens verificados com checklist"},
     {nome:"Alinhamento + Balanceamento", desc:"Com tecnologia 3D"},
     {nome:"Troca de Pastilhas e Discos", desc:"Freios de alta performance"},
     {nome:"Suspensão Esportiva", desc:"Rebaixamento e regulagem"},
     {nome:"Diagnóstico Eletrônico", desc:"Scanner OBD Avançado"},
     {nome:"Reparo de Motor", desc:"Revisão geral de motor"},
     {nome:"Instalação de Som Automotivo", desc:"Som premium + isolamento"},
-    {nome:"Polimento e Vitrifiação", desc:"Proteção de pintura"},
-    {nome:"Chip de Potência", desc:"Aumento de performance"}
+    {nome:"Polimento e Vitrifiação", desc:"Proteção de pintura 3 anos"},
+    {nome:"Chip de Potência", desc:"Aumento de performance e torque"},
+    {nome:"Troca de Correia Dentada", desc:"Serviço completo com tensor"},
+    {nome:"Geometria 3D", desc:"Alinhamento digital preciso"},
+    {nome:"Instalação de Kit Xenon/LED", desc:"Melhoria na iluminação"},
+    {nome:"Troca de Embreagem", desc:"Completa com teste final"},
+    {nome:"Repintura e Detalhamento", desc:"Pintura profissional"},
+    {nome:"Instalação de Escape Esportivo", desc:"Com ponteira esportiva"},
+    {nome:"Manutenção de Turbo", desc:"Revisão completa da turbina"},
+    {nome:"Preparação para Track Day", desc:"Setup completo para pista"}
 ];
 
 let carrinho = [];
@@ -264,7 +269,7 @@ function adicionarCarrinho(id) {
     const existe = carrinho.find(i => i.id === id);
     if(existe) existe.qtd++;
     else carrinho.push({...produto, qtd:1});
-    
+  
     atualizarCarrinho();
     Toastify({text: `${produto.nome} adicionado ao carrinho!`, duration: 2200, backgroundColor: "#7B3FFF"}).showToast();
 }
@@ -273,10 +278,8 @@ function atualizarCarrinho() {
     const itensDiv = document.getElementById('itens-carrinho');
     const totalSpan = document.getElementById('total-carrinho');
     const badge = document.getElementById('carrinho-badge');
-
     itensDiv.innerHTML = '';
     let total = 0;
-
     carrinho.forEach((item, index) => {
         total += item.preco * item.qtd;
         itensDiv.innerHTML += `
@@ -289,7 +292,6 @@ function atualizarCarrinho() {
             </div>
         `;
     });
-
     totalSpan.textContent = total.toFixed(2);
     badge.textContent = carrinho.reduce((acc, i) => acc + i.qtd, 0);
 }
@@ -326,18 +328,14 @@ function finalizarPedido() {
     window.open(`https://wa.me/5544997087954?text=${msg}`, '_blank');
 }
 
-// PIX
 const PIX_KEY = "mecanicaautomotiva.gaucha@gmail.com";
-
 function abrirPix() {
     if(carrinho.length === 0) return alert("Carrinho vazio!");
     let total = carrinho.reduce((acc, i) => acc + i.preco * i.qtd, 0);
     const pixText = `Stage Gaúcha Automotiva - Gaúcha/PR\nChave PIX: ${PIX_KEY}\nValor: R$ ${total.toFixed(2)}`;
-
     document.getElementById("pix-valor-total").textContent = total.toFixed(2);
     document.getElementById("pixCopia").value = pixText;
     document.getElementById("pixQr").src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(pixText)}`;
-    
     document.getElementById("modalPix").style.display = "flex";
 }
 
