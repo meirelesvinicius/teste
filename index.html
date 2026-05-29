@@ -10,6 +10,11 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 <style>
 
 /* RESET */
@@ -28,6 +33,21 @@ color:white;
 overflow-x:hidden;
 }
 
+/* SCROLLBAR PREMIUM */
+
+::-webkit-scrollbar{
+width:10px;
+}
+
+::-webkit-scrollbar-track{
+background:#0a0a0a;
+}
+
+::-webkit-scrollbar-thumb{
+background:linear-gradient(#7B3FFF,#a970ff);
+border-radius:20px;
+}
+
 /* FUNDO GLOW */
 
 body::before{
@@ -42,6 +62,37 @@ filter:blur(120px);
 z-index:-1;
 }
 
+/* PARTÍCULAS */
+
+.particles{
+position:fixed;
+inset:0;
+overflow:hidden;
+z-index:-2;
+}
+
+.particle{
+position:absolute;
+width:4px;
+height:4px;
+background:#7B3FFF;
+border-radius:50%;
+opacity:0.4;
+animation:particleMove linear infinite;
+}
+
+@keyframes particleMove{
+
+from{
+transform:translateY(100vh);
+}
+
+to{
+transform:translateY(-120vh);
+}
+
+}
+
 /* HEADER */
 
 header{
@@ -54,7 +105,8 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 background:rgba(255,255,255,0.03);
-backdrop-filter:blur(18px);
+backdrop-filter:blur(30px);
+-webkit-backdrop-filter:blur(30px);
 border-bottom:1px solid rgba(255,255,255,0.08);
 z-index:999;
 }
@@ -182,6 +234,29 @@ text-decoration:none;
 display:inline-flex;
 align-items:center;
 justify-content:center;
+position:relative;
+overflow:hidden;
+}
+
+.btn::before{
+content:'';
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,0.25),
+transparent
+);
+
+transition:0.6s;
+}
+
+.btn:hover::before{
+left:100%;
 }
 
 .btn-primary{
@@ -216,7 +291,7 @@ max-width:900px;
 filter:
 drop-shadow(0 0 80px #7B3FFF66)
 brightness(1.05);
-animation:float 6s ease-in-out infinite;
+transition:0.2s;
 }
 
 /* FLOAT */
@@ -279,8 +354,12 @@ transition:0.4s;
 }
 
 .stat-box:hover{
-transform:translateY(-8px);
-background:rgba(255,255,255,0.06);
+transform:
+translateY(-10px)
+scale(1.02);
+
+box-shadow:
+0 0 60px rgba(123,63,255,0.25);
 }
 
 .stat-box h2{
@@ -305,6 +384,19 @@ color:#aaa;
 line-height:1.8;
 }
 
+/* FADE */
+
+.fade-up{
+opacity:0;
+transform:translateY(50px);
+transition:1s;
+}
+
+.fade-up.show{
+opacity:1;
+transform:translateY(0);
+}
+
 /* SERVIÇOS */
 
 .servicos-grid,
@@ -319,7 +411,7 @@ margin-top:40px;
 .produto-card{
 background:rgba(255,255,255,0.04);
 border:1px solid rgba(255,255,255,0.06);
-backdrop-filter:blur(20px);
+backdrop-filter:blur(30px);
 padding:30px;
 border-radius:24px;
 transition:0.4s;
@@ -327,8 +419,12 @@ transition:0.4s;
 
 .servico-card:hover,
 .produto-card:hover{
-transform:translateY(-8px);
-box-shadow:0 0 40px rgba(123,63,255,0.18);
+transform:
+translateY(-10px)
+scale(1.02);
+
+box-shadow:
+0 0 60px rgba(123,63,255,0.25);
 }
 
 .servico-card{
@@ -395,7 +491,17 @@ background:rgba(255,255,255,0.04);
 padding:35px;
 border-radius:24px;
 border:1px solid rgba(255,255,255,0.06);
-backdrop-filter:blur(20px);
+backdrop-filter:blur(30px);
+transition:0.4s;
+}
+
+.contato-card:hover{
+transform:
+translateY(-10px)
+scale(1.02);
+
+box-shadow:
+0 0 60px rgba(123,63,255,0.25);
 }
 
 /* MODAIS */
@@ -420,6 +526,7 @@ position:relative;
 max-height:85vh;
 overflow-y:auto;
 border:1px solid rgba(255,255,255,0.08);
+backdrop-filter:blur(30px);
 }
 
 .fechar{
@@ -430,7 +537,7 @@ font-size:30px;
 cursor:pointer;
 }
 
-/* CARRINHO ITENS */
+/* CARRINHO */
 
 .item-carrinho{
 display:flex;
@@ -580,6 +687,8 @@ flex-direction:column;
 
 <body>
 
+<div class="particles" id="particles"></div>
+
 <header>
 
 <div class="logo">
@@ -613,8 +722,6 @@ STAGE GAÚCHA
 </nav>
 
 </header>
-
-<!-- HERO -->
 
 <section class="hero" id="home">
 
@@ -715,8 +822,6 @@ e manutenção de alto nível.
 
 </section>
 
-<!-- EMPRESA -->
-
 <section id="empresa">
 
 <h2>A Empresa</h2>
@@ -729,8 +834,6 @@ diagnóstico inteligente e experiência automotiva futurista.
 </p>
 
 </section>
-
-<!-- SERVIÇOS -->
 
 <section id="servicos">
 
@@ -766,8 +869,6 @@ Alinhamento
 
 </section>
 
-<!-- LOJA -->
-
 <section id="produtos">
 
 <h2>Loja Premium</h2>
@@ -799,8 +900,6 @@ Baterias
 <div class="produtos-grid" id="produtos-grid"></div>
 
 </section>
-
-<!-- CONTATO -->
 
 <section id="contato">
 
@@ -835,8 +934,6 @@ Baterias
 </div>
 
 </section>
-
-<!-- MODAL CARRINHO -->
 
 <div class="modal" id="modalCarrinho">
 
@@ -885,8 +982,6 @@ WhatsApp
 </div>
 
 </div>
-
-<!-- MODAL ORÇAMENTO -->
 
 <div class="modal" id="modalOrcamento">
 
@@ -941,8 +1036,6 @@ Solicitar Orçamento
 
 </div>
 
-<!-- WHATS -->
-
 <a
 class="whatsapp"
 href="https://wa.me/5544997087954"
@@ -953,8 +1046,6 @@ target="_blank">
 </a>
 
 <script>
-
-/* PRODUTOS */
 
 const produtos = [
 
@@ -988,8 +1079,6 @@ img:"🔋"
 ];
 
 let carrinho = [];
-
-/* RENDER */
 
 function renderizarProdutos(lista = produtos){
 
@@ -1039,8 +1128,6 @@ Adicionar
 
 renderizarProdutos();
 
-/* FILTRO */
-
 function filtrarProdutos(categoria, botao){
 
 document
@@ -1066,8 +1153,6 @@ renderizarProdutos(filtrados);
 
 }
 
-/* CARRINHO */
-
 function adicionarCarrinho(id){
 
 const produto =
@@ -1091,7 +1176,16 @@ qtd:1
 
 atualizarCarrinho();
 
-alert(produto.nome + ' adicionado!');
+Toastify({
+text: produto.nome + " adicionado ao carrinho",
+duration: 2500,
+gravity: "top",
+position: "right",
+style: {
+background:
+"linear-gradient(135deg,#7B3FFF,#a970ff)"
+}
+}).showToast();
 
 }
 
@@ -1160,9 +1254,12 @@ totalValor.toFixed(2);
 badge.innerText =
 totalItens;
 
-}
+localStorage.setItem(
+'stage_carrinho',
+JSON.stringify(carrinho)
+);
 
-/* REMOVER */
+}
 
 function removerItem(id){
 
@@ -1173,8 +1270,6 @@ atualizarCarrinho();
 
 }
 
-/* LIMPAR */
-
 function limparCarrinho(){
 
 carrinho = [];
@@ -1182,8 +1277,6 @@ carrinho = [];
 atualizarCarrinho();
 
 }
-
-/* MODAIS */
 
 function abrirCarrinho(){
 
@@ -1216,8 +1309,6 @@ document
 .style.display = 'none';
 
 }
-
-/* FINALIZAR */
 
 function finalizarPedido(){
 
@@ -1252,8 +1343,6 @@ window.open(
 
 }
 
-/* ORÇAMENTO */
-
 function enviarOrcamento(){
 
 const marca =
@@ -1280,8 +1369,6 @@ window.open(
 );
 
 }
-
-/* FECHAR FORA */
 
 window.onclick = function(event){
 
@@ -1315,17 +1402,85 @@ document.querySelector('.hero-car img');
 if(car){
 
 const x =
-e.clientX / window.innerWidth;
+(e.clientX / window.innerWidth - 0.5) * 20;
 
 const y =
-e.clientY / window.innerHeight;
+(e.clientY / window.innerHeight - 0.5) * 20;
 
 car.style.transform =
-`translate(${x * -15}px, ${y * -15}px)`;
+`translate(${x}px, ${y}px)`;
 
 }
 
 });
+
+/* SCROLL REVEAL */
+
+const observer =
+new IntersectionObserver(entries => {
+
+entries.forEach(entry => {
+
+if(entry.isIntersecting){
+
+entry.target.classList.add('show');
+
+}
+
+});
+
+});
+
+document.querySelectorAll(
+'section, .produto-card, .servico-card'
+).forEach(el => {
+
+el.classList.add('fade-up');
+
+observer.observe(el);
+
+});
+
+/* PARTÍCULAS */
+
+const particles =
+document.getElementById('particles');
+
+for(let i=0;i<80;i++){
+
+const p =
+document.createElement('div');
+
+p.classList.add('particle');
+
+p.style.left =
+Math.random()*100 + 'vw';
+
+p.style.animationDuration =
+5 + Math.random()*10 + 's';
+
+p.style.opacity =
+Math.random();
+
+p.style.transform =
+`scale(${Math.random()*2})`;
+
+particles.appendChild(p);
+
+}
+
+/* CARREGAR CARRINHO */
+
+const salvo =
+localStorage.getItem('stage_carrinho');
+
+if(salvo){
+
+carrinho = JSON.parse(salvo);
+
+atualizarCarrinho();
+
+}
 
 </script>
 
